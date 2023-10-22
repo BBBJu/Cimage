@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>image</title>
+    <style>
+        /* 页面样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* 弹出框样式 */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .popup {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h2>上传电镜图片</h2>
+<form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="handleSuccess()">
+    <!-- 选择要上传的图片 -->
+    <label for="file">选择一个图片:</label>
+    <input type="file" id="file" name="file" accept="image/*" required>
+    <br>
+
+    <!-- 输入图片名称 -->
+    <label for="fileName">图片名称:</label>
+    <input type="text" id="fileName" name="fileName" placeholder="请输入图片名称" required>
+    <br>
+
+    <!-- 输入图片描述 -->
+    <label for="description">图片描述:</label>
+    <input type="text" id="description" name="description" placeholder="请输入图片描述" required>
+    <br>
+
+    <!-- 提交按钮 -->
+    <button type="submit">上传</button>
+    <button onclick="navigateToAnotherPage()">新建表</button>
+</form>
+
+<!-- 弹出框 - 成功提示 -->
+<div class="overlay" id="successOverlay">
+    <div class="popup">
+        <span class="close" onclick="closePopup('successOverlay')">&times;</span>
+        <h3>成功</h3>
+        <p>您的图片已成功上传。</p>
+    </div>
+</div>
+
+<!-- 弹出框 - 错误提示 -->
+<div class="overlay" id="errorOverlay">
+    <div class="popup">
+        <span class="close" onclick="closePopup('errorOverlay')">&times;</span>
+        <h3>错误</h3>
+        <p>上传图片时发生错误，请稍后重试。</p>
+    </div>
+</div>
+
+<script>
+    function closePopup(id) {
+        var overlay = document.getElementById(id);
+        overlay.style.display = 'none';
+    }
+
+    // 处理表单提交成功的情况
+    function handleSuccess() {
+        var overlay = document.getElementById('successOverlay');
+        overlay.style.display = 'block';
+    }
+
+    // 处理表单提交失败的情况
+    function handleError() {
+        var overlay = document.getElementById('errorOverlay');
+        overlay.style.display = 'block';
+    }
+    function navigateToAnotherPage() {
+        // 使用 JavaScript 进行页面跳转
+        window.location.href = "创建表格.html";
+    }
+</script>
+</body>
+</html>
